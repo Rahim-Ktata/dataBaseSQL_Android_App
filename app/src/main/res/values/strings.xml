@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">DataBaseSql</string>
+    <string name="Return_btn">Return</string>
+    <string name="add_to_DB_btn">Add to Data Base</string>
+    <string name="see_db_btn">See Data Base</string>
+    <string name="name">name</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="email_example">Name@gmail.com</string>
+    <string name="fields_to_modify">fields to modify</string>
+    <string name="update">update</string>
+</resources>
