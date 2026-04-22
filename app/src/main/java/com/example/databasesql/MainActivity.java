@@ -2,9 +2,12 @@ package com.example.databasesql;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -16,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
     private Button b1,b2;
     private EditText name,mail,phone;
+    private RadioGroup radioGroupRole;
     DataBase dbb;
 
     @Override
@@ -29,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         name=(EditText) findViewById(R.id.editTextText2);
         mail=(EditText) findViewById(R.id.editTextText5);
         phone=(EditText) findViewById(R.id.editTextText6);
+        radioGroupRole=(RadioGroup) findViewById(R.id.radioGroupRole);
         dbb=new DataBase(this);
 
 
@@ -37,7 +42,21 @@ public class MainActivity extends AppCompatActivity {
                     !mail.getText().toString().equalsIgnoreCase("") &&
                     !phone.getText().toString().equalsIgnoreCase(""))
             {
-                Boolean insereted=dbb.insertData(name.getText().toString(), mail.getText().toString(), phone.getText().toString());
+                if(!phone.getText().toString().matches("\\d{8}")){
+                    Toast.makeText(MainActivity.this, "le numero de tel invalide", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                String mailStr = mail.getText().toString();
+                if(!Patterns.EMAIL_ADDRESS.matcher(mailStr).matches()){
+                    Toast.makeText(MainActivity.this, "adresse mail invalide", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // Get selected role
+                int selectedId = radioGroupRole.getCheckedRadioButtonId();
+                RadioButton selectedRadio = findViewById(selectedId);
+                String role = selectedRadio.getText().toString();
+
+                Boolean insereted=dbb.insertData(name.getText().toString(), mail.getText().toString(), phone.getText().toString(), role);
                 if (insereted)
                     Toast.makeText(MainActivity.this, "Insertion avec succès", Toast.LENGTH_SHORT).show();
                 else

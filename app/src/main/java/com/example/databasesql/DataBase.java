@@ -16,26 +16,29 @@ public class DataBase extends SQLiteOpenHelper{
     public static final String col_2="NAME";
     public static final String col_3="EMAIL";
     public static final String col_4="PHONE";
+    public static final String col_5="ROLE";
     public DataBase(@Nullable Context context) {
-        super(context, DATABASE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, 2);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE "+DATABASE_TABLE+ "(ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, EMAIL TEXT, PHONE TEXT)");
+        db.execSQL("CREATE TABLE "+DATABASE_TABLE+ "(ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, EMAIL TEXT, PHONE TEXT, ROLE TEXT)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+DATABASE_TABLE);
+        onCreate(db);
     }
 
-    public boolean insertData(String name, String mail, String phone){
+    public boolean insertData(String name, String mail, String phone, String role){
         SQLiteDatabase dB = this.getWritableDatabase();
         ContentValues cn = new ContentValues();
         cn.put(col_2,name);
         cn.put(col_3,mail);
         cn.put(col_4,phone);
+        cn.put(col_5,role);
         long res = dB.insert(DATABASE_TABLE, null, cn);
         return res != -1;
     }
@@ -52,12 +55,13 @@ public class DataBase extends SQLiteOpenHelper{
         db.close();
     }
 
-    public void update(String name, String mail, String phone, int id){
+    public void update(String name, String mail, String phone, String role, int id){
         SQLiteDatabase db= this.getWritableDatabase();
         ContentValues cVals = new ContentValues();
         cVals.put(col_2,name);
         cVals.put(col_3,mail);
         cVals.put(col_4,phone);
+        cVals.put(col_5,role);
         int count = db.update(DATABASE_TABLE, cVals, col_1+" = ?",new String[]{String.valueOf(id)});
         db.close();
     }

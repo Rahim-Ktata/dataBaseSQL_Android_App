@@ -9,4 +9,10 @@
     <string name="email_example">Name@gmail.com</string>
     <string name="fields_to_modify">fields to modify</string>
     <string name="update">update</string>
+    <string name="role">Rôle</string>
+    <string name="manager">Manager</string>
+    <string name="developpeur">Développeur</string>
+    <string name="stagiaire">Stagiaire</string>
+    <string name="search_hint">Rechercher par nom…</string>
+    <string name="sort_az">Trier A-Z</string>
 </resources>
